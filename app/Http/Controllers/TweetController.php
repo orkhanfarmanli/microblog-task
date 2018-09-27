@@ -91,6 +91,11 @@ class TweetController extends Controller
      */
     public function destroy(Tweet $tweet)
     {
-        //
+        if ($tweet->user_id != auth()->user()->id) {
+            return redirect()->back();
+        }
+
+        $tweet->delete();
+        return redirect()->route('profile', auth()->user()->username);
     }
 }

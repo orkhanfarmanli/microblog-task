@@ -24,7 +24,6 @@
                         <h5>
                             <a class="no-decoration" href="{{ route('tweets.show', $tweet->id) }}">{{ $tweet->body }}</a>
                         </h5>
-                        <br>
                     </div>
                     <hr>
                     @endforeach
