@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tweet;
 use Illuminate\Http\Request;
+use App\Http\Requests\TweetRequest;
 
 class TweetController extends Controller
 {
@@ -38,7 +39,7 @@ class TweetController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TweetRequest $request)
     {
         $tweet = new Tweet;
         $tweet->body = $request->body;
@@ -56,7 +57,7 @@ class TweetController extends Controller
      */
     public function show(Tweet $tweet)
     {
-        //
+        return view('tweet', ['tweet' => $tweet]);
     }
 
     /**

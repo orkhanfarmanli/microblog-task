@@ -19,4 +19,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile/{username}', 'HomeController@profile')->name('profile');
-Route::post('/tweet', 'TweetController@store')->name('tweet');
+Route::get('/tweet/{tweet}', 'TweetController@show')->name('tweets.show');
+Route::post('/tweet', 'TweetController@store')->name('tweets.store');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Tweet;
 
 class HomeController extends Controller
 {
@@ -24,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $users = User::inRandomOrder()->whereNotIn('id', [auth()->user()->id])->take(3)->get();
+        $tweets = Tweet::latest()->take(100)->get();
+        return view('home', ['users' => $users, 'tweets' => $tweets]);
     }
 
     /**

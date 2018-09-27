@@ -2,7 +2,16 @@
     margin-top: 50px;
 }
 
+.user-description {
+    margin-left: 15px;
+}
 
-.user-box {
-    border-right: 1px solid lightgray;
+.user-description span:first-child {
+    font-weight: bold;
+    font-size: 1.1em;
+    display: block;
+}
+
+.no-decoration {
+    text-decoration: none !important;
 }
