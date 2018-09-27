@@ -26,8 +26,9 @@ class HomeController extends Controller
     public function index()
     {
         $users = User::inRandomOrder()->whereNotIn('id', [auth()->user()->id])->take(3)->get();
-        $tweets = Tweet::latest()->take(100)->get();
-        return view('home', ['users' => $users, 'tweets' => $tweets]);
+        $timeline = auth()->user()->timeline();
+        
+        return view('home', ['users' => $users, 'timeline' => $timeline]);
     }
 
     /**

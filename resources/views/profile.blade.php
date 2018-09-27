@@ -12,6 +12,20 @@
                     <div class="user-description col-xs-8">
                         <span>{{ $user->name }}</span>
                         <span>{{ "@" . $user->username }}</span>
+                        @if (auth()->user()->id != $user->id)    
+                            @if (auth()->user()->is_following($user->id))
+                            <form action="{{ route('user.unfollow', $user->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm" href="{{ route('user.unfollow', $user->id) }}">Unfollow</button>
+                            </form>
+                            @else
+                            <form action="{{ route('user.follow', $user->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm" href="{{ route('user.follow', $user->id) }}">Follow</button>
+                            </form>
+                            @endif
+                        @endif
+                        
                     </div>
                 </div>
             </div>

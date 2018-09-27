@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-4">
-            <h4>Suggestions</h4>
+            <h4>Other users</h4>
             @foreach ($users as $user)    
             <a class="no-decoration" href="{{ route('profile', $user->username) }}">
                 <div class="col-md-12">
@@ -15,6 +15,18 @@
                         <div class="user-description col-xs-8">
                             <span>{{ $user->name }}</span>
                             <span>{{ "@" . $user->username }}</span>
+                            <br>
+                            @if (auth()->user()->is_following($user->id))
+                            <form action="{{ route('user.unfollow', $user->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm" href="{{ route('user.unfollow', $user->id) }}">Unfollow</button>
+                            </form>
+                            @else
+                            <form action="{{ route('user.follow', $user->id) }}" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary btn-sm" href="{{ route('user.follow', $user->id) }}">Follow</button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -45,11 +57,27 @@
                     </form>
 
                     <div class="col-md-12 tweets-wrapper">
-                        @foreach ($tweets as $tweet)
-                            <div>
-                                <a class="no-decoration" href="{{ route('tweets.show', $tweet->id) }}">{{ $tweet->body }}</a>
+                        @foreach ($timeline as $tweet)
+                        <div class="row">
+                            <div class="col-md-2 text-center">
+                                <img class="user-profile-pic" width="50" height="50" src="{{ Avatar::create($tweet->author_name)->toBase64() }}" alt="">
                             </div>
-                            <hr>
+                            <div class="col-md-9">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <a class="no-decoration" href="{{ route('profile', $tweet->author_username) }}">{{ $tweet->author_name . " @" . $tweet->author_username }}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a class="no-decoration black-text" href="{{ route('tweets.show', $tweet->id) }}">{{ $tweet->body }}</a>                            
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
                         @endforeach
                     </div>
                 </div>

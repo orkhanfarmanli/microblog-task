@@ -21,5 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/profile/{username}', 'HomeController@profile')->name('profile');
 
 Route::resource('tweets', 'TweetController');
-// Route::get('/tweet/{tweet}', 'TweetController@show')->name('tweets.show');
-// Route::post('/tweet', 'TweetController@store')->name('tweets.store');
+
+Route::post('/follow/{user}', 'UserController@followUser')->name('user.follow');
+Route::post('/unfollow/{user}', 'UserController@unFollowUser')->name('user.unfollow');
